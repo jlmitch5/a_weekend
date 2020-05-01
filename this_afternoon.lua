@@ -21,7 +21,7 @@ seq = { 0, 4, 5, 7, 9, 12 }
 switchRepeats = 4
 varDivisor1 = 2
 seq2 = { 12, 9, 7, 5, 4, 0 }
-switch2repeats = 4
+switch2Repeats = 4
 varDivisor2 = 2
 level = 5
 time = 4
@@ -37,6 +37,34 @@ switch2 = 1
 d = math.random(1, varDivisor2)
 e = math.random(1, varDivisor2)
 f = math.random(1, varDivisor2)
+
+function brutus()
+    output[2].volts = seq[step]/12
+    output[2].slew = math.random(0,varDivisor)/100
+    step = ((step + math.random(0, 1)) % #seq) + 1
+    if step == 1 then
+        switch = (switch + 1) % switchRepeats
+        if switch == 1 then
+            a = math.random(1, varDivisor1)
+            b = math.random(1, varDivisor1)
+            c = math.random(1, varDivisor1)
+        end
+    end
+end
+
+function mimi()
+    output[4].volts = seq2[step2]/12
+    output[4].slew = math.random(0,varDivisor)/100
+    step2 = ((step2 + math.random(0, 1)) % #seq2) + 1
+    if step2 == 1 then
+        switch2 = (switch2 + 1) % switch2Repeats
+        if switch2 == 1 then
+            d = math.random(1, varDivisor2)
+            e = math.random(1, varDivisor2)
+            f = math.random(1, varDivisor2)
+        end
+    end
+end
 
 function init()
     output[1]( loop
@@ -69,32 +97,4 @@ function init()
         , to(function() return -level/e end, function() return time/f end)
         }
     )
-end
-
-function brutus()
-    output[2].volts = seq[step]/12
-    output[2].slew = math.random(0,varDivisor)/100
-    step = ((step + math.random(0, 1)) % #seq) + 1
-    if step == 1 then
-        switch = (switch + 1) % switchRepeats
-        if switch == 1 then
-            a = math.random(1, varDivisor1)
-            b = math.random(1, varDivisor1)
-            c = math.random(1, varDivisor1)
-        end
-    end
-end
-
-function mimi()
-    output[4].volts = seq2[step2]/12
-    output[4].slew = math.random(0,varDivisor)/100
-    step2 = ((step2 + math.random(0, 1)) % #seq2) + 1
-    if step2 == 1 then
-        switch2 = (switch2 + 1) % switch2Repeats
-        if switch2 == 1 then
-            d = math.random(1, varDivisor2)
-            e = math.random(1, varDivisor2)
-            f = math.random(1, varDivisor2)
-        end
-    end
 end

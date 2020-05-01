@@ -43,6 +43,44 @@ step2 = 1
 step3 = 1
 bassStarted = 0
 
+function sammie()
+    if seq1modon == 1 then
+        output[2].volts = seq[step]/12 + math.random(2, 3) + seq1mod
+    else
+        output[2].volts = seq[step]/12 + math.random(2)
+    end
+    
+    step = ((step + math.random(0, 1)) % #seq) + 1
+    if step == 1 then
+        if bassStarted == 0 then
+            metro[1]:start()
+            bassStarted = bassStarted + 1
+        end
+        switch = (switch + 1) % switch1Repeats
+        if switch == 1 then
+            -- every 4 (or whatever switch1Repeats is) # of sequence repeats
+            -- possibly turn on/off the +5 / -7 (or whatever) sequence
+            -- transposition to keep things interesting
+            seq1modon = math.random(0,1)
+            seq2modon = math.random(0,1)
+        end
+    end
+end
+
+function monkey()
+    if seq2modon == 1 then
+        output[4].volts = seq2[step2]/12 + math.random(0,2) + seq2mod
+    else
+        output[4].volts = seq2[step2]/12 + math.random(0,3)
+    end
+    step2 = ((step2 + math.random(0, 1)) % #seq2) + 1
+end
+
+function albert()
+    ii.jf.play_note( jfMasterDetune - 2 + seq3[step3 + 1]/12, 5)
+    step3 = ((step3 + 1) % #seq3)
+end
+
 function init()
     output[1]( loop 
         { sammie
@@ -85,42 +123,4 @@ function init()
 
     ii.pullup(true)
     ii.jf.mode(1)
-end
-
-function sammie()
-    if seq1modon == 1 then
-        output[2].volts = seq[step]/12 + math.random(2, 3) + seq1mod
-    else
-        output[2].volts = seq[step]/12 + math.random(2)
-    end
-    
-    step = ((step + math.random(0, 1)) % #seq) + 1
-    if step == 1 then
-        if bassStarted == 0 then
-            metro[1]:start()
-            bassStarted = bassStarted + 1
-        end
-        switch = (switch + 1) % switch1Repeats
-        if switch == 1 then
-            -- every 4 (or whatever switch1Repeats is) # of sequence repeats
-            -- possibly turn on/off the +5 / -7 (or whatever) sequence
-            -- transposition to keep things interesting
-            seq1modon = math.random(0,1)
-            seq2modon = math.random(0,1)
-        end
-    end
-end
-
-function monkey()
-    if seq2modon == 1 then
-        output[4].volts = seq2[step2]/12 + math.random(0,2) + seq2mod
-    else
-        output[4].volts = seq2[step2]/12 + math.random(0,3)
-    end
-    step2 = ((step2 + math.random(0, 1)) % #seq2) + 1
-end
-
-function albert()
-    ii.jf.play_note( jfMasterDetune - 2 + seq3[step3 + 1]/12, 5)
-    step3 = ((step3 + 1) % #seq3)
 end
