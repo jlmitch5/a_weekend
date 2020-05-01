@@ -40,7 +40,7 @@ f = math.random(1, varDivisor2)
 
 function brutus()
     output[2].volts = seq[step]/12
-    output[2].slew = math.random(0,varDivisor)/100
+    output[2].slew = math.random(0, 2)/100
     step = ((step + math.random(0, 1)) % #seq) + 1
     if step == 1 then
         switch = (switch + 1) % switchRepeats
@@ -54,7 +54,7 @@ end
 
 function mimi()
     output[4].volts = seq2[step2]/12
-    output[4].slew = math.random(0,varDivisor)/100
+    output[4].slew = math.random(0, 2)/100
     step2 = ((step2 + math.random(0, 1)) % #seq2) + 1
     if step2 == 1 then
         switch2 = (switch2 + 1) % switch2Repeats
