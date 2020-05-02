@@ -53,6 +53,8 @@ function sammie()
     step = ((step + math.random(0, 1)) % #seq) + 1
     if step == 1 then
         if bassStarted == 0 then
+            ii.pullup(true)
+            ii.jf.mode(1)
             metro[1]:start()
             bassStarted = bassStarted + 1
         end
@@ -120,7 +122,4 @@ function init()
 
     metro[1].event = albert
     metro[1].time  = time * bassTimeMod
-
-    ii.pullup(true)
-    ii.jf.mode(1)
 end
